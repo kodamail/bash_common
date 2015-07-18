@@ -12,7 +12,7 @@
 export LANG=en
 export F_UFMTENDIAN="big"
 
-BASH_COMMON_TEMP_DIR=""
+BASH_COMMON_TEMP_DIR="none"
 BASH_COMMON_ORG_DIR=$( pwd )
 function create_temp()
 {
@@ -78,3 +78,12 @@ function file_exist_or_error()
     done
 }
 
+function get_filesize()
+{
+    if [ "$1" = "" ] ; then
+	exit_error "error in $0: filename is not specified for get_filesize()."
+    fi
+    SIZE=$( ls -lL $1 | awk '{ print $5 }' ) \
+	|| exit_error
+    echo ${SIZE}
+}

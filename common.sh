@@ -1,5 +1,5 @@
 #
-# common utilities for analysis using bash
+# common utilities using bash
 #
 #
 # [usage]
@@ -46,3 +46,35 @@ function finish()
     fi
     echo ""
 }
+
+function exit_error()
+{
+    local MESSAGE=$1
+    if [ "${MESSAGE}" = "" ] ; then
+	echo "error in $0" >&2
+    else
+	echo "${MESSAGE}" >&2
+    fi
+    exit 1
+}
+
+#
+# check existence of files
+#
+# [usage]
+#   exist_file_or_error filename1 filename2 ...
+#
+function file_exist_or_error()
+{
+    if [ "$1" = "" ] ; then
+	exit_error "error in $0: filename is not specified for exist_file_or_error()."
+    fi
+
+    while [ "$1" != "" ] ; do
+	if [ ! -f "$1" ] ; then
+	    exit_error "error in $0: $1 does not exist."
+	fi
+	shift
+    done
+}
+

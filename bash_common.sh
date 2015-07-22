@@ -16,13 +16,13 @@ BASH_COMMON_TEMP_DIR="none"
 BASH_COMMON_ORG_DIR=$( pwd )
 function create_temp()
 {
-#    local TEMP
-#    for(( i=1; $i<=10; i=$i+1 )) ; do
-#        TEMP=$( date +%s )
+    local TEMP
+    for(( i=1; $i<=10; i=$i+1 )) ; do
+        TEMP=$( date +%s )
     BASH_COMMON_TEMP_DIR=temp.$( date +%s ).$$
-#        [ ! -d ${BASH_COMMON_TEMP_DIR} ] && break
-#        sleep 1s
-#    done
+        [ ! -d ${BASH_COMMON_TEMP_DIR} ] && break
+        sleep 1s
+    done
     mkdir -p ${BASH_COMMON_TEMP_DIR}
 }
 

@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# get relative path to TO_PATH viewed from FROM_PATH
+#
+FROM_PATH=$1
+TO_PATH=$2
+
+cd ${FROM_PATH}
+ABS_FROM_PATH=$( pwd -P )
+cd - > /dev/null
+cd ${TO_PATH}
+ABS_TO_PATH=$( pwd -P )
+cd - > /dev/null
+
+BUF1=""
+BUF2=""
+while [ "${ABS_FROM_PATH}" != "" ] ; do
+    TMP1=${ABS_FROM_PATH:0:1}
+    TMP2=${ABS_TO_PATH:0:1}
+#    echo "${TMP1} ${TMP2}"
+    [ "${TMP1}" != "${TMP2}" ] && break
+    BUF1=${BUF1}${TMP1}
+    BUF2=${BUF2}${TMP2}
+    [ "${TMP1}" = "/" -a "${TMP2}" = "/" ] && BUF1="" && BUF2=""
+    ABS_FROM_PATH=${ABS_FROM_PATH:1}
+    ABS_TO_PATH=${ABS_TO_PATH:1}
+done
+
+ABS_FROM_PATH=${BUF1}${ABS_FROM_PATH}
+ABS_TO_PATH=${BUF2}${ABS_TO_PATH}
+
+if [ "${ABS_FROM_PATH}" = "" -a "${ABS_TO_PATH}" = "" ] ; then
+    RET="./"
+else
+#echo "mesg: ${ABS_FROM_PATH}" >&2
+    RET=$( echo ${ABS_FROM_PATH} | sed -e "s/[^\/][^\/]*/../g" )
+#echo "mesg: ${RET}" >&2
+    RET="${RET}/${ABS_TO_PATH}"
+fi
+
+echo ${RET}

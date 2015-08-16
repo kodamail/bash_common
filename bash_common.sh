@@ -39,12 +39,14 @@ function finish()
     [ "${BASH_COMMON_TEMP_DIR}" != "" ] && rm -rf ${BASH_COMMON_TEMP_DIR}
 
 #    echo ""
-    if [ "${MESSAGE}" = "" ] ; then
-	echo "########## $0 finished ##########"
-    else
+#    if [ "${MESSAGE}" = "" ] ; then
+#	echo "########## $0 finished ##########"
+#	echo ""
+#    else
+    if [ "${MESSAGE}" != "" ] ; then
 	echo "${MESSAGE}"
+	echo ""
     fi
-    echo ""
 }
 
 function exit_error()

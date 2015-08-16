@@ -38,7 +38,7 @@ function finish()
     cd ${BASH_COMMON_ORG_DIR}
     [ "${BASH_COMMON_TEMP_DIR}" != "" ] && rm -rf ${BASH_COMMON_TEMP_DIR}
 
-    echo ""
+#    echo ""
     if [ "${MESSAGE}" = "" ] ; then
 	echo "########## $0 finished ##########"
     else

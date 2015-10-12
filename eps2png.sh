@@ -5,6 +5,7 @@
 #                [--dry-run]
 #                [-p match-pattern]
 #                [--max-cycle n]
+#                [eps1.eps eps2.eps ...]
 #
 ARGS_ORG="$*"
 MATCH=""
@@ -12,6 +13,7 @@ RECURSIVE=0
 DEL_EPS=0
 DRY_RUN=0
 MAX_CYCLE=0
+EPS_LIST=()
 
 while [ "$1" != "" ] ; do
     if [ "$1" = "-r" ] ; then
@@ -26,6 +28,8 @@ while [ "$1" != "" ] ; do
     elif [ "$1" = "-p" ] ; then
 	shift
 	MATCH=$1
+    elif [ -f "$1" ] ; then
+	EPS_LIST=( ${EPS_LIST[@]} $1 )
     else
 	echo "syntax error in eps2png.sh: $1" >&2
 	exit 1
@@ -35,10 +39,12 @@ done
 
 [ "${MATCH}" = "" ] && MATCH="*.eps"
 
-if [ ${RECURSIVE} -eq 0 ] ; then
-    EPS_LIST=( $( find ./ -maxdepth 1 -type f -name "${MATCH}" ) )
-else
-    EPS_LIST=( $( find ./ -type f -name "${MATCH}" ) )
+if [ ${#EPS_LIST[@]} -eq 0 ] ; then
+    if [ ${RECURSIVE} -eq 0 ] ; then
+	EPS_LIST=( $( find ./ -maxdepth 1 -type f -name "${MATCH}" ) )
+    else
+	EPS_LIST=( $( find ./ -type f -name "${MATCH}" ) )
+    fi
 fi
 
 TEMP1=temp1.$$.png

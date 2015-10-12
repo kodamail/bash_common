@@ -28,8 +28,8 @@ function create_temp()
 
 #
 # [usage]
-#   trap 'finish'
-#   trap 'finish "message"'
+#   trap 'finish' 0
+#   trap 'finish "message"' 0
 #
 function finish()
 {

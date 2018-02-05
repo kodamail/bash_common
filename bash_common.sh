@@ -9,7 +9,7 @@
 #   BASH_COMMON_TEMP_DIR
 #     temporary directory
 #
-export LANG=en
+export LANG=C
 export F_UFMTENDIAN="big"
 
 BASH_COMMON_TEMP_DIR="none"

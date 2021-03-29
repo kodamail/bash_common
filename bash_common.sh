@@ -17,12 +17,13 @@ BASH_COMMON_TEMP_DIR="none"
 BASH_COMMON_ORG_DIR=$( pwd )
 function create_temp()
 {
-    for(( i=1; $i<=10; i=$i+1 )) ; do
-	BASH_COMMON_TEMP_DIR=temp.$( hostname -s ).$( date +%s ).$$
-        [[ ! -d ${BASH_COMMON_TEMP_DIR} ]] && break
-        sleep 1s
-    done
-    mkdir -p ${BASH_COMMON_TEMP_DIR}
+    BASH_COMMON_TEMP_DIR=$( mktemp -d tmp.$$.XXXXXXXXXX )
+#    for(( i=1; $i<=10; i=$i+1 )) ; do
+#	BASH_COMMON_TEMP_DIR=temp.$( hostname -s ).$( date +%s ).$$
+#        [[ ! -d ${BASH_COMMON_TEMP_DIR} ]] && break
+#        sleep 1s
+#    done
+#    mkdir -p ${BASH_COMMON_TEMP_DIR}
 }
 
 #

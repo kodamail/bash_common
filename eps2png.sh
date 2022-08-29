@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # usage:
 #   ./eps2png.sh [-r] [--delete-eps]

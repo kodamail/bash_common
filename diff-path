@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # get relative path to TO_PATH viewed from FROM_PATH
 #
